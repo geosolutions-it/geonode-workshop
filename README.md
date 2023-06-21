@@ -11,6 +11,6 @@ docker compose up -d
 
 :tea: Take a cup of tea, and relax. The build and startup will take some time.
 
-:clock1: In few mintes you should have you local GeoNode visible at [http://localhost](http://localhost)
+:clock1: In a few minutes your local GeoNode will be visible at [http://localhost](http://localhost)
 
 You can adapt the .env file if you want to change the default secrets and configuration.
