@@ -1,5 +1,5 @@
 # Geonode Workshop
-A basic geonode project, for educational purposes and local tests.
+A basic GeoNode 4.1.0 Project, for educational purposes and local tests.
 
 [Install Docker](https://docs.docker.com/engine/install/) for your OS, then just run:
 ```bash
