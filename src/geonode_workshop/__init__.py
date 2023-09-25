@@ -20,7 +20,7 @@
 
 import os
 
-__version__ = (4, 0, 0, 'final', 0)
+__version__ = (4, 2, 0, "dev", 0)
 
 
 default_app_config = "geonode_workshop.apps.AppConfig"
@@ -28,4 +28,5 @@ default_app_config = "geonode_workshop.apps.AppConfig"
 
 def get_version():
     import geonode_workshop.version
+
     return geonode_workshop.version.get_version(__version__)
