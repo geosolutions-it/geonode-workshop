@@ -72,3 +72,5 @@ Vagrantfile
 /.env
 
 /src/celerybeat-schedule
+
+/.vs/

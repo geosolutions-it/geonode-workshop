@@ -1,9 +1,9 @@
-FROM geonode/geonode-base:latest-ubuntu-22.10
+FROM geonode/geonode-base:latest-ubuntu-22.04
 LABEL GeoNode development team
 
 RUN mkdir -p /usr/src/geonode_workshop
 
-# RUN apt update -y && apt upgrade -y && apt install curl wget unzip gnupg2 locales -y
+RUN apt update -y && apt upgrade -y && apt install curl wget unzip gnupg2 locales -y
 
 RUN sed -i -e 's/# C.UTF-8 UTF-8/C.UTF-8 UTF-8/' /etc/locale.gen && \
     locale-gen
