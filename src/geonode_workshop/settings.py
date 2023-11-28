@@ -19,6 +19,7 @@
 #########################################################################
 
 # Django settings for the GeoNode project.
+import geonode.settings
 import os
 import ast
 
@@ -164,3 +165,5 @@ if LDAP_ENABLED and "geonode_ldap" not in INSTALLED_APPS:
 # https://docs.geonode.org/en/master/advanced/contrib/#configuration
 
 DEFAULT_MAX_PARALLEL_UPLOADS_PER_USER = int(os.getenv("DEFAULT_MAX_PARALLEL_UPLOADS_PER_USER", 20))
+
+INSTALLED_APPS += ('geonode_workshop.projectapp',)

@@ -18,13 +18,14 @@
 #
 #########################################################################
 
+
+from django.conf.urls import url
 from geonode.urls import urlpatterns
+from geonode_workshop.projectapp.views import workshop_view
 
 """
 # You can register your own urlpatterns here
-urlpatterns = [
-    url(r'^/?$',
-        homepage,
-        name='home'),
- ] + urlpatterns
 """
+urlpatterns += [
+    url(r'^workshop/', workshop_view, name='workshop_view'),
+]

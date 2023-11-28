@@ -169,9 +169,9 @@ DEBUG=True
 
 SECRET_KEY='39Y.@tGHXfEpN|_$Os2Vfriy.-1VI>cEg5KY>\:xl%0li(wrRJ'
 
-STATIC_ROOT=/mnt/volumes/statics/static/
-MEDIA_ROOT=/mnt/volumes/statics/uploaded/
-GEOIP_PATH=/mnt/volumes/statics/geoip.db
+#STATIC_ROOT=/mnt/volumes/statics/static/
+#MEDIA_ROOT=/mnt/volumes/statics/uploaded/
+#GEOIP_PATH=/mnt/volumes/statics/geoip.db
 
 CACHE_BUSTING_STATIC_ENABLED=False
 
