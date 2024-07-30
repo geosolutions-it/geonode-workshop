@@ -3,12 +3,15 @@ version: '3.9'
 # Common Django template for GeoNode and Celery services below
 x-common-django:
   &default-common-django
-  image: ${COMPOSE_PROJECT_NAME}_django:4.2.0
+  image: ${COMPOSE_PROJECT_NAME}/geonode:${GEONODE_BASE_IMAGE_VERSION}
+  build:
+      context: ./
+      dockerfile: Dockerfile
   restart: unless-stopped
   env_file:
     - .env
   volumes:
-    - './src:/usr/src/geonode_workshop'
+    - './src:/usr/src/{{project_name}}'
     - statics:/mnt/volumes/statics
     - geoserver-data-dir:/geoserver_data/data
     - backup-restore:/backup_restore
@@ -17,44 +20,46 @@ x-common-django:
   depends_on:
     db:
       condition: service_healthy
+  healthcheck:
+    timeout: 10s
 
 services:
 
   # Our custom django application. It includes Geonode.
   django:
     << : *default-common-django
-    build:
-      context: ./
-      dockerfile: Dockerfile
     container_name: django4${COMPOSE_PROJECT_NAME}
     healthcheck:
       test: "curl -m 10 --fail --silent --write-out 'HTTP CODE : %{http_code}\n' --output /dev/null http://django:8000/"
-      start_period: 60s
-      interval: 60s
+      start_period: 120s
+      interval: 10s
       timeout: 10s
-      retries: 2
+      retries: 3
     environment:
       - IS_CELERY=False
-    entrypoint: ["/usr/src/geonode_workshop/entrypoint.sh"]
-    command: "uwsgi --ini /usr/src/geonode_workshop/uwsgi.ini"
+    entrypoint: ["/usr/src/{{project_name}}/entrypoint.sh"]
+    command: "uwsgi --ini /usr/src/{{project_name}}/uwsgi.ini"
 
   # Celery worker that executes celery tasks created by Django.
   celery:
     << : *default-common-django
-    image: ${COMPOSE_PROJECT_NAME}_django:4.2.0
     container_name: celery4${COMPOSE_PROJECT_NAME}
     depends_on:
       django:
         condition: service_healthy
     environment:
       - IS_CELERY=True
-    entrypoint: ["/usr/src/geonode_workshop/entrypoint.sh"]
+    entrypoint: ["/usr/src/{{project_name}}/entrypoint.sh"]
     command: "celery-cmd"
 
   # Nginx is serving django static and media files and proxies to django and geonode
   geonode:
-    image: geonode/nginx:1.25.1
-    build: ./docker/nginx/
+    image: ${COMPOSE_PROJECT_NAME}/nginx:${NGINX_BASE_IMAGE_VERSION}
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+      args:
+        - BASE_IMAGE_VERSION=${NGINX_BASE_IMAGE_VERSION}
     container_name: nginx4${COMPOSE_PROJECT_NAME}
     env_file:
       - .env
@@ -84,8 +89,12 @@ services:
 
   # Gets and installs letsencrypt certificates
   letsencrypt:
-    image: geonode/letsencrypt:latest
-    build: ./docker/letsencrypt/
+    image: ${COMPOSE_PROJECT_NAME}/letsencrypt:${LETSENCRYPT_BASE_IMAGE_VERSION}
+    build:
+      context: ./docker/letsencrypt
+      dockerfile: Dockerfile
+      args:
+        - BASE_IMAGE_VERSION=${LETSENCRYPT_BASE_IMAGE_VERSION}
     container_name: letsencrypt4${COMPOSE_PROJECT_NAME}
     env_file:
       - .env
@@ -95,8 +104,12 @@ services:
 
   # Geoserver backend
   geoserver:
-    image: geonode/geoserver:2.23.0
-    build: ./docker/geoserver/
+    image: ${COMPOSE_PROJECT_NAME}/geoserver:${GEOSERVER_BASE_IMAGE_VERSION}
+    build:
+      context: ./docker/geoserver
+      dockerfile: Dockerfile
+      args:
+        - BASE_IMAGE_VERSION=${GEOSERVER_BASE_IMAGE_VERSION}
     container_name: geoserver4${COMPOSE_PROJECT_NAME}
     healthcheck:
       test: "curl -m 10 --fail --silent --write-out 'HTTP CODE : %{http_code}\n' --output /dev/null http://geoserver:8080/geoserver/ows"
@@ -122,7 +135,12 @@ services:
         condition: service_healthy
 
   data-dir-conf:
-    image: geonode/geoserver_data:2.23.0
+    image: ${COMPOSE_PROJECT_NAME}/geoserver_data:${GEOSERVER_DATA_BASE_IMAGE_VERSION}
+    build:
+      context: ./docker/geoserver_data
+      dockerfile: Dockerfile
+      args:
+        - BASE_IMAGE_VERSION=${GEOSERVER_DATA_BASE_IMAGE_VERSION}
     container_name: gsconf4${COMPOSE_PROJECT_NAME}
     entrypoint: sleep infinity
     volumes:
@@ -133,8 +151,12 @@ services:
 
   # PostGIS database.
   db:
-    # use geonode official postgis 15 image
-    image: geonode/postgis:15
+    image: ${COMPOSE_PROJECT_NAME}/postgis:${POSTGRES_BASE_IMAGE_VERSION}
+    build:
+      context: ./docker/postgresql
+      dockerfile: Dockerfile
+      args:
+        - BASE_IMAGE_VERSION=${POSTGRES_BASE_IMAGE_VERSION}
     command: postgres -c "max_connections=${POSTGRESQL_MAX_CONNECTIONS}"
     container_name: db4${COMPOSE_PROJECT_NAME}
     env_file:
