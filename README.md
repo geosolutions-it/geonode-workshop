@@ -1,5 +1,5 @@
 # Geonode Workshop
-A minimal [GeoNode 4.2.0 Project](https://github.com/GeoNode/geonode-project/tree/master), for educational purposes and local testing.
+A minimal [GeoNode 5 Project](https://github.com/GeoNode/geonode-project/tree/master), for educational purposes and local testing.
 
 [Install Docker](https://docs.docker.com/engine/install/) for your OS, then just run:
 ```bash

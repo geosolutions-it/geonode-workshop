@@ -1,17 +1,12 @@
-version: '3.9'
-
 # Common Django template for GeoNode and Celery services below
 x-common-django:
   &default-common-django
   image: ${COMPOSE_PROJECT_NAME}/geonode:${GEONODE_BASE_IMAGE_VERSION}
-  build:
-      context: ./
-      dockerfile: Dockerfile
   restart: unless-stopped
   env_file:
     - .env
   volumes:
-    - './src:/usr/src/geonode_workshop'
+    # - './src:/usr/src/geonode_workshop'
     - statics:/mnt/volumes/statics
     - geoserver-data-dir:/geoserver_data/data
     - backup-restore:/backup_restore
@@ -20,21 +15,22 @@ x-common-django:
   depends_on:
     db:
       condition: service_healthy
-  healthcheck:
-    timeout: 10s
 
 services:
 
   # Our custom django application. It includes Geonode.
   django:
     << : *default-common-django
+    build:
+      context: ./
+      dockerfile: Dockerfile
     container_name: django4${COMPOSE_PROJECT_NAME}
     healthcheck:
       test: "curl -m 10 --fail --silent --write-out 'HTTP CODE : %{http_code}\n' --output /dev/null http://django:8000/"
-      start_period: 120s
-      interval: 10s
+      start_period: 60s
+      interval: 60s
       timeout: 10s
-      retries: 9
+      retries: 2
     environment:
       - IS_CELERY=False
     entrypoint: ["/usr/src/geonode_workshop/entrypoint.sh"]
@@ -79,7 +75,7 @@ services:
     image: memcached:alpine
     container_name: memcached4${COMPOSE_PROJECT_NAME}
     command: memcached ${MEMCACHED_OPTIONS}
-    restart: on-failure
+    restart: unless-stopped
     healthcheck:
       test: nc -z 127.0.0.1 11211
       interval: 30s
@@ -171,12 +167,12 @@ services:
     #ports:
     #  - "5432:5432"
 
-  # Vanilla RabbitMQ service. This is needed by celery
-  rabbitmq:
-    image: rabbitmq:3-alpine
-    container_name: rabbitmq4${COMPOSE_PROJECT_NAME}
+  # Vanilla Redis service. This is needed by celery
+  redis:
+    image: redis:7-alpine
+    container_name: redis4${COMPOSE_PROJECT_NAME}
     volumes:
-      - rabbitmq:/var/lib/rabbitmq
+      - redisdata:/data
     restart: unless-stopped
 
 volumes:
@@ -198,5 +194,5 @@ volumes:
     name: ${COMPOSE_PROJECT_NAME}-data
   tmp:
     name: ${COMPOSE_PROJECT_NAME}-tmp
-  rabbitmq:
-    name: ${COMPOSE_PROJECT_NAME}-rabbitmq
+  redisdata:
+    name: ${COMPOSE_PROJECT_NAME}-redisdata
