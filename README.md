@@ -14,7 +14,7 @@ docker compose up -d
 
 :clock1: In a few minutes your local GeoNode will be visible at [http://localhost](http://localhost)
 
-:+1: Login with `admin:geonode`
+:+1: The login access will be printed inside the .env file under `ADMIN_USERNAME` and `ADMIN_PASSWORD`
 
 ## Custom Setup
 
