@@ -1,8 +1,8 @@
 {
-  "name": "geonode_workshop",
+  "name": "project",
   "version": "0.0.1",
   "author": "GeoNode Developers",
-  "description": "Static code and assets for geonode_workshop",
+  "description": "Static code and assets for project",
   "contributors": [
     {
     }
