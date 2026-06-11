@@ -1,0 +1,31 @@
+{
+  "project_file_format": {
+    "type": "string",
+    "title": "File Format",
+    "description": "Select the format of the resource file",
+    "enum": [
+      null, ".asc", ".bmp", ".cep", ".csv", ".docx", ".gdb", ".geojson", 
+      ".gif", ".gml", ".gpkg", ".gpx", ".hdf", ".html", ".img", ".ini", 
+      ".jpeg", ".js", ".json", ".kml", ".kmz", ".las", ".md", ".mp3", 
+      ".mp4", ".pdf", ".php", ".pickle", ".png", ".pptx", ".py", ".rar", 
+      ".R", ".RData", ".Rmd", ".shp(.shx,.dbf)", ".svg", ".tif", ".txt", 
+      ".xlsx", ".xml", ".xyz", ".yml", ".zip", ".7z", "other"
+    ],
+    "geonode:handler": "sparse",
+    "geonode:after": "abstract"
+  },
+  "project_satellite_sensor": {
+    "type": "string",
+    "title": "Satellite/Sensor",
+    "maxLength": 250,
+    "geonode:handler": "sparse",
+    "geonode:after": "project_file_format"
+  },
+  "project_download_date": {
+    "type": "string",
+    "format": "date",
+    "title": "Download Date",
+    "geonode:handler": "sparse",
+    "geonode:after": "project_satellite_sensor"
+  }
+}

@@ -76,4 +76,12 @@ TEMPLATES[0].pop("APP_DIRS", None)
 
 PROJECT_FIXTURES = [
     # List project-related fixture files here, in the order they should be loaded.
+    "comments.json",
+    "environmental_observations.json",
 ]
+
+INSTALLED_APPS += ('geonode_project.metadata',)
+INSTALLED_APPS += ('geonode_project.comments',)
+INSTALLED_APPS += ('geonode_project.environmental_observations',)
+
+API_URL="https://jsonplaceholder.typicode.com/posts/1/comments"

@@ -18,10 +18,14 @@
 #
 #########################################################################
 
+from django.urls import include, path, re_path
+
+from geonode.urls import handler500, urlpatterns as geonode_urlpatterns  # noqa
+from geonode_project.views import my_custom_view
+
 # Do not remove handler500 import. It is required to re-export
 # the custom error page handler for the GeoNode project
 # related issue: https://github.com/GeoNode/geonode-project/issues/570
-from geonode.urls import urlpatterns, handler500  # noqa
 
 """
 # You can register your own urlpatterns here
@@ -31,3 +35,12 @@ urlpatterns = [
         name='home'),
  ] + urlpatterns
 """
+
+urlpatterns = [
+    re_path(r"^mycustomurl/$", my_custom_view, name="my_custom_url"),
+    path("comments/", include("geonode_project.comments.urls")),
+    path(
+        "environmental-observations/",
+        include("geonode_project.environmental_observations.urls"),
+    ),
+] + geonode_urlpatterns

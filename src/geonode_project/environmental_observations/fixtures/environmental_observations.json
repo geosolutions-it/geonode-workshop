@@ -1,0 +1,77 @@
+[
+  {
+    "model": "environmental_observations.environmentalobservation",
+    "pk": 1,
+    "fields": {
+      "title": "Flood observation near Kifisos River",
+      "category": "flood",
+      "observer_name": "Athens Field Team",
+      "observer_email": "athens.field@example.org",
+      "description": "High water level observed near a road bridge after heavy rainfall.",
+      "latitude": "38.037210",
+      "longitude": "23.707840",
+      "observed_at": "2026-02-12T09:30:00Z",
+      "created_at": "2026-02-12T10:00:00Z"
+    }
+  },
+  {
+    "model": "environmental_observations.environmentalobservation",
+    "pk": 2,
+    "fields": {
+      "title": "Coastal erosion at Agios Kosmas",
+      "category": "coastal_erosion",
+      "observer_name": "Coastal Survey Group",
+      "observer_email": "coast.survey@example.org",
+      "description": "Fresh erosion scarp and exposed roots recorded along the shoreline.",
+      "latitude": "37.880650",
+      "longitude": "23.729040",
+      "observed_at": "2026-03-04T13:15:00Z",
+      "created_at": "2026-03-04T14:00:00Z"
+    }
+  },
+  {
+    "model": "environmental_observations.environmentalobservation",
+    "pk": 3,
+    "fields": {
+      "title": "Forest fire risk note near Parnitha",
+      "category": "fire_risk",
+      "observer_name": "Mountain Monitoring Unit",
+      "observer_email": "mountain.monitoring@example.org",
+      "description": "Dry vegetation and strong winds reported near the forest access road.",
+      "latitude": "38.167310",
+      "longitude": "23.719780",
+      "observed_at": "2026-06-01T11:20:00Z",
+      "created_at": "2026-06-01T12:00:00Z"
+    }
+  },
+  {
+    "model": "environmental_observations.environmentalobservation",
+    "pk": 4,
+    "fields": {
+      "title": "Water quality sample at Lake Marathon",
+      "category": "water_quality",
+      "observer_name": "Hydrology Team",
+      "observer_email": "hydrology@example.org",
+      "description": "Water sample collected near the northern bank for turbidity inspection.",
+      "latitude": "38.151860",
+      "longitude": "23.891720",
+      "observed_at": "2026-04-18T08:45:00Z",
+      "created_at": "2026-04-18T09:30:00Z"
+    }
+  },
+  {
+    "model": "environmental_observations.environmentalobservation",
+    "pk": 5,
+    "fields": {
+      "title": "Landslide report near Delphi road",
+      "category": "landslide",
+      "observer_name": "Road Inspection Crew",
+      "observer_email": "road.inspection@example.org",
+      "description": "Small slope failure with debris on the roadside after overnight rain.",
+      "latitude": "38.480510",
+      "longitude": "22.501020",
+      "observed_at": "2026-01-27T07:50:00Z",
+      "created_at": "2026-01-27T08:20:00Z"
+    }
+  }
+]

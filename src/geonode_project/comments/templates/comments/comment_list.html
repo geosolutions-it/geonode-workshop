@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Database comments</title>
+  </head>
+  <body>
+    <main>
+      <h1>Database comments</h1>
+      <p>These comments are read from the Django database.</p>
+
+      <p>
+        API:
+        <a href="{% url 'comments:comment-list-api' %}">all comments</a>
+        {% if post_id %}
+          |
+          <a href="{% url 'comments:comment-list-api' %}?post_id={{ post_id }}">filtered API</a>
+        {% endif %}
+      </p>
+
+      <form method="get">
+        <label for="post_id">Filter by post ID</label>
+        <input id="post_id" name="post_id" type="number" value="{{ post_id }}">
+        <button type="submit">Filter</button>
+        <a href="{% url 'comments:comment-list' %}">Clear</a>
+      </form>
+
+      <ul>
+        {% for comment in comments %}
+          <li>
+            <strong>{{ comment.name }}</strong><br>
+            <span>postId: {{ comment.post_id }}</span><br>
+            <span>email: {{ comment.email }}</span><br>
+            <p>{{ comment.body }}</p>
+            <a href="{% url 'comments:comment-detail-api' comment.pk %}">Open JSON detail</a>
+          </li>
+        {% empty %}
+          <li>No comments found.</li>
+        {% endfor %}
+      </ul>
+    </main>
+  </body>
+</html>

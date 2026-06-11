@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Environmental observations</title>
+  </head>
+  <body>
+    <main>
+      <h1>Environmental observations</h1>
+      <p>These observations are loaded from the database and include coordinates.</p>
+
+      <p>
+        API:
+        <a href="{% url 'environmental_observations:observation-list-api' %}">all observations</a>
+        {% if category %}
+          |
+          <a href="{% url 'environmental_observations:observation-list-api' %}?category={{ category }}">filtered API</a>
+        {% endif %}
+      </p>
+
+      <form method="get">
+        <label for="category">Filter by category</label>
+        <input id="category" name="category" type="text" value="{{ category }}">
+        <button type="submit">Filter</button>
+        <a href="{% url 'environmental_observations:observation-list' %}">Clear</a>
+      </form>
+
+      <ul>
+        {% for observation in observations %}
+          <li>
+            <strong>{{ observation.title }}</strong><br>
+            <span>category: {{ observation.category }}</span><br>
+            <span>observer: {{ observation.observer_name }}</span><br>
+            <span>coordinates: {{ observation.latitude }}, {{ observation.longitude }}</span><br>
+            <span>observed: {{ observation.observed_at }}</span>
+            <p>{{ observation.description }}</p>
+            <a href="{% url 'environmental_observations:observation-detail-api' observation.pk %}">Open JSON detail</a>
+          </li>
+        {% empty %}
+          <li>No observations found.</li>
+        {% endfor %}
+      </ul>
+    </main>
+  </body>
+</html>

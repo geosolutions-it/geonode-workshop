@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My custom page</title>
+  </head>
+  <body>
+    <main>
+      <h1>This is my custom page</h1>
+      <p>API URL: {{ api_url }}</p>
+
+      {% if error %}
+        <p style="color: red;">API error: {{ error }}</p>
+      {% endif %}
+
+      <ul>
+        {% for el in data %}
+          <li>
+            {% for key, value in el.items %}
+              {% if key == "postId" %}
+                <span style="color: red;">{{ key }}:</span>
+                <input type="text" value="{{ value }}">
+                <br>
+              {% else %}
+                {{ key }}: {{ value }}<br>
+              {% endif %}
+            {% endfor %}
+          </li>
+        {% empty %}
+          <li>No API data available.</li>
+        {% endfor %}
+      </ul>
+    </main>
+  </body>
+</html>
