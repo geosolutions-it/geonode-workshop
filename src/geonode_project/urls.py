@@ -22,6 +22,10 @@
 # the custom error page handler for the GeoNode project
 # related issue: https://github.com/GeoNode/geonode-project/issues/570
 from geonode.urls import urlpatterns, handler500  # noqa
+from django.views.generic import TemplateView
+from django.urls import re_path
+
+from geonode_project.views import TrainingPageView
 
 """
 # You can register your own urlpatterns here
@@ -31,3 +35,12 @@ urlpatterns = [
         name='home'),
  ] + urlpatterns
 """
+
+# register a new custom resource page
+urlpatterns += [
+    # using custom page view
+    re_path(r"^training$", TrainingPageView.as_view(), name="training"),
+
+    # using template view
+    # re_path(r"^training$", TemplateView.as_view(template_name="geonode-mapstore-client/pages/training.html"), name="training")
+]

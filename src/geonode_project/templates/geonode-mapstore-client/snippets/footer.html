@@ -1,0 +1,32 @@
+{% load i18n %}
+
+<div class="gn-footer-placeholder"></div>
+<footer class="gn-footer">
+    <ul>
+        <li>
+            <a href="https://geonode.org/" class="nav-link">
+                <span>{% trans "Your Organization" %}</span>
+            </a>
+        </li>
+        <li>
+            <a href="/about/" class="nav-link">
+                <span>{% trans "About" %}</span>
+            </a>
+        </li>
+    </ul>
+</footer>
+
+<script>
+    (function () {
+        const footer = document.querySelector('.gn-footer');
+        const footerPlaceholder = document.querySelector('.gn-footer-placeholder');
+        function resize() {
+            if (footerPlaceholder && footer) {
+                footerPlaceholder.style.height = footer.clientHeight + 'px';
+            }
+        }
+        window.addEventListener('resize', resize);
+        window.addEventListener('DOMContentLoaded', resize);
+        resize();
+    })();
+</script>

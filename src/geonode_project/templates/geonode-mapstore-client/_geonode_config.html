@@ -3,6 +3,21 @@
 <script>
     window.__GEONODE_CONFIG__.overrideLocalConfig = function(localConfig, _) {
         // Here the localConfig can be overridden and/or extended
+
+        /*
+        "MapExport" has been disabled by default but is still available
+        inside the list of imported plugins.
+        It should be enabled only on the pages that contain the "MapExport" plugin.
+        */
+        // localConfig.plugins.map_viewer.push({ "name": "MapExport" });
+
+        /* Add new extension to map viewer */
+        // localConfig.plugins.map_viewer.push({ "name": "SampleExtension" });
+
+
+        // example: Remove Measure from the map viewer
+        // localConfig.plugins['map_viewer'] = localConfig.plugins['map_viewer'].filter(plugin => !['Measure'].includes(plugin.name));
+        
         return localConfig;
     };
 </script>

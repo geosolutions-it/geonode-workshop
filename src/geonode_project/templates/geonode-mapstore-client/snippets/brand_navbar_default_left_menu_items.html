@@ -1,0 +1,32 @@
+{% load i18n %}
+
+{% comment %}
+    This template is used to render the left menu items in the brand navbar.
+    Here we override the default menu items removing datasets
+{% endcomment %}
+
+<li>
+    <a id="all-resources" href="/all" target="" class="nav-link btn btn-default">
+        {% trans "All resources" %}
+    </a>
+</li>
+<li>
+    <a id="documents" href="/documents" target="" class="nav-link btn btn-default">
+        {% trans "Documents" %}
+    </a>
+</li>
+<li>
+    <a id="maps" href="/maps" target="" class="nav-link btn btn-default">
+        {% trans "Maps" %}
+    </a>
+</li>
+<li>
+    <a id="geostories" href="/geostories" target="" class="nav-link btn btn-default">
+        {% trans "GeoStories" %}
+    </a>
+</li>
+<li>
+    <a id="dashboards" href="/dashboards" target="" class="nav-link btn btn-default">
+        {% trans "Dashboards" %}
+    </a>
+</li> 

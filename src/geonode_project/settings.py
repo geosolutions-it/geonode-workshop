@@ -77,3 +77,83 @@ TEMPLATES[0].pop("APP_DIRS", None)
 PROJECT_FIXTURES = [
     # List project-related fixture files here, in the order they should be loaded.
 ]
+
+
+# override translations
+LANGUAGES = [
+    ("en-US", "English"),
+    ("it-IT", "Italiano")
+]
+
+# add new translation files path to override translations
+MAPSTORE_TRANSLATIONS_PATH = MAPSTORE_TRANSLATIONS_PATH + ["/static/mapstore/project-translations"]
+
+# add new baselayers to map (takes effect only in new map)
+MAPSTORE_BASELAYERS = [
+        {
+            "type": "osm",
+            "title": "Open Street Map",
+            "name": "mapnik",
+            "source": "osm",
+            "group": "background",
+            "visibility": True,
+        },
+        {
+            "type": "tileprovider",
+            "title": "OpenTopoMap",
+            "provider": "OpenTopoMap",
+            "name": "OpenTopoMap",
+            "source": "OpenTopoMap",
+            "group": "background",
+            "visibility": False,
+        },
+        {
+            "type": "wms",
+            "title": "Sentinel-2 cloudless - https://s2maps.eu",
+            "format": "image/jpeg",
+            "id": "s2cloudless",
+            "name": "s2cloudless:s2cloudless",
+            "url": "https://maps.geosolutionsgroup.com/geoserver/wms",
+            "group": "background",
+            "thumbURL": f"{SITEURL}static/mapstorestyle/img/s2cloudless-s2cloudless.png",
+            "visibility": False,
+        },
+        {
+            "format": "image/jpeg",
+            "group": "background",
+            "name": "osm:osm_simple_dark",
+            "opacity": 1,
+            "title": "OSM Simple Dark",
+            "thumbURL": f"{SITEURL}static/mapstorestyle/img/bing_canvas_dark.png",
+            "type": "wms",
+            "url": [
+                "https://maps6.geosolutionsgroup.com/geoserver/wms",
+                "https://maps3.geosolutionsgroup.com/geoserver/wms",
+                "https://maps1.geosolutionsgroup.com/geoserver/wms",
+                "https://maps4.geosolutionsgroup.com/geoserver/wms",
+                "https://maps2.geosolutionsgroup.com/geoserver/wms",
+                "https://maps5.geosolutionsgroup.com/geoserver/wms"
+            ],
+            "source": "osm_simple_dark",
+            "visibility": False,
+            "singleTile": False,
+            "credits": {
+                "title": "OSM Simple Dark | Rendering <a href=\"https://www.geo-solutions.it/\">GeoSolutions</a> | Data © <a href=\"http://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"http://www.openstreetmap.org/copyright\">ODbL</a>"
+            }
+        },
+        {
+            "source": "ol",
+            "group": "background",
+            "id": "none",
+            "name": "empty",
+            "title": "Empty Background",
+            "type": "empty",
+            "visibility": False,
+            "args": ["Empty Background", {"visibility": False}],
+        },
+    ]
+
+# default map center
+DEFAULT_MAP_CENTER_X = 1261620 # initial x center position of the map (EPSG:3857 default crs)
+DEFAULT_MAP_CENTER_Y = 5439686 # initial y center position of the map (EPSG:3857 default crs)
+DEFAULT_MAP_ZOOM = 10 # initial zoom level of the map

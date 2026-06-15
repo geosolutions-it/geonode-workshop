@@ -1,0 +1,29 @@
+{% extends "geonode-mapstore-client/snippets/brand_navbar.html" %}
+{% load static %}
+{% block extra_style %}
+    {{block.super}}
+    <!-- override navbar background color and stripe pattern -->
+    <style>
+      #gn-brand-navbar {
+        --primary-soft: rgba(57, 122, 171, 0.25);
+        --bg: #ffffff;
+        background:
+            linear-gradient(135deg, var(--primary-soft) 25%, transparent 25%) -50px 0,
+            linear-gradient(225deg, var(--primary-soft) 25%, transparent 25%) -50px 0,
+            linear-gradient(315deg, var(--primary-soft) 25%, transparent 25%),
+            linear-gradient(45deg, var(--primary-soft) 25%, transparent 25%);
+        background-size: 32px 32px;
+        background-color: var(--bg);
+        border-bottom: 1px solid rgba(57, 122, 171, 0.25);
+    }
+    #gn-brand-navbar > div {
+        background: white;
+        padding: 2px 8px;
+    }
+    </style>
+{% endblock %}
+
+{% block logo %}
+    <!-- override logo -->
+    <img src="{% static 'img/logo.png' %}" alt="Logo">
+{% endblock %}

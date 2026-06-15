@@ -1,0 +1,117 @@
+{% extends "geonode-mapstore-client/resource_page_catalog.html" %}
+
+
+{% comment %}
+    This template is used to render the training page, which is a custom resource page that displays only datasets.
+    It extends the resource_page_catalog.html template and overrides the content block to display only datasets.
+    It also defines the ms_plugins block to configure the ResourcesGrid plugin to display only datasets and to add a custom menu item for uploading datasets.
+{% endcomment %}
+
+
+{% load i18n %}
+{% block content %}
+    <style>
+        .gn-training-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.75rem 1rem;
+            padding-top: 0.5rem;
+        }
+        .gn-training-header h4 {
+            margin: 0;
+        }
+        .gn-training-counts {
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 0.375rem;
+            font-size: 0.75rem;
+            line-height: 1;
+        }
+        .gn-training-counts .gn-count {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            opacity: 0.75;
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+        }
+        .gn-training-counts .gn-count-label {
+            text-transform: uppercase;
+            font-size: 0.65rem;
+            letter-spacing: 0.04em;
+        }
+        .gn-training-counts .gn-count-value {
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+    <div class="gn-resource-page-catalog-section">
+        <div class="gn-resource-page-catalog-content">
+            <div class="gn-training-header">
+                <h4>{% trans "Training Datasets" %}</h4>
+                {% comment %}
+                    <span class="gn-training-counts text-muted" style="font-size:0.9rem;">
+                        {% trans "My resources" %}: {{ training_counts.my_resources }}
+                        |
+                        {% trans "Favorites" %}: {{ training_counts.favorites }}
+                        |
+                        {% trans "Featured" %}: {{ training_counts.featured }}
+                    </span>
+                {% endcomment %}
+                <span class="gn-training-counts" aria-label="{% trans 'Training datasets summary' %}">
+                    <span class="gn-count">
+                        <span class="gn-count-label">{% trans "My resources" %}</span>
+                        <span class="gn-count-value">{{ training_counts.my_resources }}</span>
+                    </span>
+                    <span class="gn-count">
+                        <span class="gn-count-label">{% trans "Favorites" %}</span>
+                        <span class="gn-count-value">{{ training_counts.favorites }}</span>
+                    </span>
+                    <span class="gn-count">
+                        <span class="gn-count-label">{% trans "Featured" %}</span>
+                        <span class="gn-count-value">{{ training_counts.featured }}</span>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div id="training-dataset-all" class="ms-plugin ResourcesGrid"></div>
+{% endblock content %}
+
+{% block ms_plugins %}
+    msPluginsBlocks = [
+        {
+            "name": "ResourcesGrid",
+            "cfg": {
+                "id": "catalog",
+                "title": "Training Datasets",
+                "defaultQuery": {
+                    "f": "dataset"
+                },
+                "targetSelector": "#training-dataset-all",
+                 "menuItems": getPageMenuItem({
+                    "type": "dropdown",
+                    "noCaret": true,
+                    "items": [
+                        {
+                            "labelId": "gnhome.uploadDataset",
+                            "value": "layer",
+                            "type": "link",
+                            "href": "{getCataloguePath('/catalogue/#/upload/dataset')}"
+                        }
+                    ]
+                })
+            }
+        },
+        {
+            "name": "ResourcesFiltersForm",
+            "cfg": {
+                "defaultQuery": {
+                    "f": "dataset"
+                },
+                "fields": getPageFilterForm()
+            }
+        }
+    ]
+{% endblock ms_plugins %}

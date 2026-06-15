@@ -1,0 +1,7 @@
+{
+    "SampleExtension": {
+        "bundle": "SampleExtension/index.js",
+        "assets": "SampleExtension/assets",
+        "translations": "SampleExtension/translations"
+    }
+}

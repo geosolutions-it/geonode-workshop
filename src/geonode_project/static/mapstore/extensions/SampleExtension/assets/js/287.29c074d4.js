@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkSampleExtension=self.webpackChunkSampleExtension||[]).push([[287],{31287(e,n,s){s.d(n,{default:()=>l});var a=s(3075),t=s(49194);class l extends t.A{decodeBlock(e){return(0,a.UD)(new Uint8Array(e)).buffer}}}}]);
