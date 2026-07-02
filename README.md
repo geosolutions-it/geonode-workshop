@@ -70,3 +70,36 @@ Example JSON expected:
 "clientsecret": "value"
 } 
 ```
+
+## Install project for development
+
+Is also possible to start the project in development mode using the [devcontainer](https://code.visualstudio.com/docs/devcontainers/containers).
+
+In the project inside the `.devcontainer` folder there is a `generate.py` file. This file allow the developer to create all the files required to run the project in development mode.
+
+Steps to generate the project for development:
+
+1) Generate the .env file as described in the [Custom Setup](https://github.com/geosolutions-it/geonode-workshop#custom-setup)
+2) Enter in the `.devcontainer` folder
+3) Run the `generate.py` file by specifying the project name. In this example the project name should be `geonode_project` 
+```
+cd .devcontainer
+python3 generate.py geonode_project
+```
+4) The script will generate a different files and it should look like the following tree
+
+```
+(geonode) ➜  geonode-workshop git:(main) ✗ tree .devcontainer 
+.devcontainer
+├── .env
+├── .vscode/
+├────── launch.json
+├── devcontainer.json
+├── docker-compose.yml
+├── docker.sh
+└── generate.py
+```
+
+5) Use the docker.sh to run the containers `./docker.sh up -d --build`
+6) After the build, use the devcontainers utils to enter in the django container `SHIFT + CTRL + P` and click on `Reopen in container`
+7) Automatically the system will recognize the `launch.json` file to run the django application and therefore GeoNode
